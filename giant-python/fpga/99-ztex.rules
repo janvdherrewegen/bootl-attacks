@@ -1,0 +1,5 @@
+# Rules for the ZTEX-EZ-USB board
+# Set Group for USBasp
+SUBSYSTEM=="usb", ATTR{idVendor}=="221a", ATTR{idProduct}=="0100", ACTION=="add", MODE="0664", GROUP="usb"
+SUBSYSTEM=="usb", ATTR{idVendor}=="04B4", ATTR{idProduct}=="8613", ACTION=="add", MODE="0664", GROUP="usb"
+SUBSYSTEM=="usb", ATTR{idVendor}=="04B4", ATTR{idProduct}=="1480", ACTION=="add", MODE="0664", GROUP="usb"
