@@ -1,0 +1,6 @@
+[submodule "k0dasm"]
+	path = k0dasm
+	url = https://github.com/mnaberez/k0dasm
+[submodule "naken_asm"]
+	path = naken_asm
+	url = https://github.com/mikeakohn/naken_asm
