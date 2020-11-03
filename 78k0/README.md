@@ -2,6 +2,19 @@
 
 This directory contains the source material to attack the 78k0 bootloader using our symbolic execution based technique. 
 
+## Connecting the chip
+Desolder the chip onto a breakout board and connect the following pins:
+
+| RPI GPIO | 78K0 Pin | Function |
+| -------- | -------- | -------- |
+| 23 | RST | Reset |
+| 2 | FLMD0 | Bootloader pin |
+| 9 | SO | Output from the 78k0 bootloader |
+| 10 | SI | Input to the 78k0 bootloader |
+| 11 | SCK | SPI clock signal |
+| * | REGC | Voltage input to the 78k0 chip (connect to GIAnT output) |
+| Vss | Vss | Ground |
+
 ## Dumping the bootloader
 The ```bootloader_dump``` directory contains the code to dump the bootloader. It sets the necessary registers to map the bootloader in memory and transmits it through the UART.
 

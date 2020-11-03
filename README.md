@@ -18,25 +18,8 @@ We use several open source tools and packages to compile and run code on the tar
 - [st\_util](https://github.com/stlink-org/stlink):  To flash the stm8 firmware
 
 ## Running the code
-For the voltage glitching, we use a Raspberry pi3B+ to interface with the GIAnT and the chip under test (cf ![Glitch setup](glitch_setup.pdf))
+For the voltage glitching, we use a Raspberry pi3B+ to interface with the GIAnT and the chip under test (cf ![Glitch setup](glitch_setup.pdf)). The schematics and source for the GIAnT board is located in the [giant-hardware](giant-hardware) folder.
 
-We configure the following GPIO pins to communicate with the bootloader of the stm8:
-
-| GPIO | Function |
-| ---- | -------- |
-| 22 | Reset |
-| 14 | UART TX |
-| 15 | UART RX |
-
-And for glitching the 78K0: 
-
-| GPIO | Function |
-| ---- | -------- |
-| 23 | Reset |
-| 2 | FLMD0 | 78K0 |
-| 9 | MISO | 78K0 |
-| 10 | MOSI | 78K0 |
-| 11 | SCLK | 78K0 |
 
 
 ## Directory Organisation
