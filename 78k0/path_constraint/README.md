@@ -47,3 +47,5 @@ Equivalence class 00fc -> 00ff: 536 ticks
 
 ``` 
 
+Add the optional flag ```--print_all_addr``` to print out all address pairs in each equivalence class.
+

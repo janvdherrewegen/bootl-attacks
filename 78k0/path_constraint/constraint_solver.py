@@ -41,6 +41,7 @@ class constraint_solver:
 
 
     def handle_cond_branch(self, br_ins, idx):
+        ''' Figure out what constrains the conditional branch'''
         # Traverse the path backwards to check where constraint originates from
         for _j in range(idx, -1, -1):
             ins = self.path.insns[_j]
@@ -75,9 +76,11 @@ class constraint_solver:
                 
 
     def get_constraints(self):
+        ''' Go through the instructions along the path and calculate the constraints over it '''
         for _i in range(len(self.path.insns)):
             curr_insn = self.path.insns[_i]
             if curr_insn.type == instruction.TYPE_JMP_COND:
                 self.handle_cond_branch(curr_insn, _i)
-        return self.path_constraints.getSolution()
+        return self.path_constraints.getSolutions()
+
 

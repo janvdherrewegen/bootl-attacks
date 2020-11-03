@@ -14,6 +14,8 @@ parser = argparse.ArgumentParser(description='Constraint class calculation')
 parser.add_argument('--db', default = "testcases/78k0/checksum_handler.p", help='Exported database in pickle format')
 parser.add_argument('--start_addr', type = lambda x: int(x, 16), default = 0x1aa8, help = "Address of the basic block to start the path search")
 parser.add_argument('--end_addr', type = lambda x: int(x, 16), default = 0x1ab7, help = "Address of the last basic block on the path")
+parser.add_argument("--print_all_addr", action="store_true")
+
 
 args = parser.parse_args()
 
@@ -48,6 +50,12 @@ with open(args.db) as in_f:
     for cfg in f_cfgs:
         cfg.arch = Rsas_78K0_Arch()
 
+def convert_constr_sol(constraint_solution):
+    ''' Helper function to convert a constraint solution to a start and end address '''
+    st_addr = (constraint_solution[START[0]] << 0x10) | (constraint_solution[START[1]] << 0x8) | (constraint_solution[START[2]])
+    e_addr = (constraint_solution[END[0]] << 0x10) | (constraint_solution[END[1]] << 0x8) | (constraint_solution[END[2]])
+    return (st_addr, e_addr)
+
 for cfg in f_cfgs:
     cfg.arch = Rsas_78K0_Arch()
     if cfg.st_addr == args.start_addr:
@@ -57,11 +65,15 @@ for cfg in f_cfgs:
             logging.info(p)
             for _p in p.expand():
                 c_s = constraint_solver(_p, VARS, CONSTR)
-                constraint_solution = c_s.get_constraints()
-                if constraint_solution:
-                    st_addr = (constraint_solution[START[0]] << 0x10) | (constraint_solution[START[1]] << 0x8) | (constraint_solution[START[2]])
-                    e_addr = (constraint_solution[END[0]] << 0x10) | (constraint_solution[END[1]] << 0x8) | (constraint_solution[END[2]])
-                    print "Equivalence class {:04x} -> {:04x}: {} ticks".format(st_addr, e_addr, _p.ticks())
+                constraint_solutions = c_s.get_constraints()
+                _i = 0
+                for _cs in constraint_solutions:
+                    st_addr, e_addr = convert_constr_sol(_cs)
                     for _pc in c_s._pretty_constraints:
                         logging.info("{}: {}, {}".format(_pc[0], _pc[1], _pc[2]))
                     logging.debug(_p)
+                    if _i == 0:
+                        print "Equivalence class {:04x} -> {:04x}: {} ticks".format(st_addr, e_addr, _p.ticks())
+                    elif args.print_all_addr:
+                        print "{:04x}, {:04x}".format(st_addr, e_addr)
+                    _i += 1
