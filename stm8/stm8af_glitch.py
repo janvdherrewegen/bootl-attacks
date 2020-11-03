@@ -4,7 +4,7 @@ import numpy as np
 
 from exceptions import *
 
-from stm8_bootl import stm8_bootloader
+from stm8_bootl import stm8_bootloader, flash_stm8
 
 import serial
 
@@ -166,12 +166,6 @@ class stm8_glitcher:
 
 
     
-def flash_stm8(flash_f, opt_file):
-    import subprocess
-    flash_f_dir = "."
-    compl_proc = subprocess.run(["./{}/flash.sh".format(flash_f_dir), "{}/{}".format(flash_f_dir,flash_f), "{}/{}".format(flash_f_dir, opt_file)], capture_output=True)
-    logging.info(compl_proc.stdout.decode())
-    logging.info(compl_proc.stderr.decode())
 
 
 

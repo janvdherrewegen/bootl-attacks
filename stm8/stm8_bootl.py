@@ -9,6 +9,15 @@ import logging
 
 import sys
 
+
+def flash_stm8(flash_f, opt_file, flash_f_dir = ".", chip="stm8af"):
+    import subprocess
+    flash_f_dir = "."
+    compl_proc = subprocess.run(["./{}/flash.sh".format(flash_f_dir), "{}/{}".format(flash_f_dir,flash_f), "{}/{}".format(flash_f_dir, opt_file)], capture_output=True)
+    logging.info(compl_proc.stdout.decode())
+    logging.info(compl_proc.stderr.decode())
+
+
 class stm8_bootloader:
     '''Interfaces with the STM8 bootloader through UART'''
     

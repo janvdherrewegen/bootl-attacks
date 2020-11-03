@@ -15,13 +15,29 @@ We use several open source tools and packages to compile and run code on the tar
 - [k0dasm](https://github.com/mnaberez/k0dasm): A compiler for the 78k0 
 - [sdcc](http://sdcc.sourceforge.net/): Compiler for the stm8
 - [naken\_asm](https://github.com/mikeakohn/naken_asm): A disassembler for the stm8
+- [st\_util](https://github.com/stlink-org/stlink):  To flash the stm8 firmware
 
 ## Running the code
-For the voltage glitching, we use a Raspberry pi3B+ to interface with the GIAnT and the chip under test:
+For the voltage glitching, we use a Raspberry pi3B+ to interface with the GIAnT and the chip under test (cf ![Glitch setup](glitch_setup.pdf))
 
-![Glitch setup](glitch_setup.pdf)
+We configure the following GPIO pins to communicate with the bootloader of the stm8:
 
-We configure the following GPIO pins to communicate with the respective bootloaders of the stm8 and 78k0 chips:
+| GPIO | Function |
+| ---- | -------- |
+| 22 | Reset |
+| 14 | UART TX |
+| 15 | UART RX |
+
+And for glitching the 78K0: 
+
+| GPIO | Function |
+| ---- | -------- |
+| 23 | Reset |
+| 2 | FLMD0 | 78K0 |
+| 9 | MISO | 78K0 |
+| 10 | MOSI | 78K0 |
+| 11 | SCLK | 78K0 |
+
 
 ## Directory Organisation
 ```
@@ -32,8 +48,5 @@ We configure the following GPIO pins to communicate with the respective bootload
 ├── stm8: Code for glitching the STM8
 ├── README.md
 ```
-
-## Building and running
-
 
 
