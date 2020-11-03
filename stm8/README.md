@@ -31,5 +31,36 @@ The EEPROM contains option bytes which set or clear the bootloader readout prote
 | opt-rop0-bl0.bin | off | off | Bootloader disabled | 1 |
 | opt-rop1-bl0.bin | on | off | Full readout protection | 2 |
 
+## Flash files
+The [flash](flash/) directory contains example flash memory files for the three different bootloader paths. Depending on the first byte in memory, the bootloader takes a different path. Note that these files are by no means valid firmware for the stm8, the bootloader only looks at the first byte in flash memory.
+
+| File | Comment |
+| ---- | ------- |
+| empty\_chip.hex | Considered an empty chip for the bootloader (first byte is not 82 or ac) |
+| first\_byte\_ac.hex | "valid" flash file with first byte ac |
+| first\_byte\_82.hex | "valid" flash file with first byte 82 |
+
+
+## Flashing firmware 
+To flash firmware onto the device (the stm8a in this case), use the following script. Option bytes files are as described above and located in the [option\_bytes](option_bytes) directory. 
+
+```./flash.sh flash.hex opt.bin stm8a```
+
+
+
 ## Glitching
-Use the scripts [stm8af\_glitch.py](stm8af_glitch.py) and [stm8l\_glitch.py](stm8l_glitch.py) to glitch the readout protection.
+To bypass the readout protection, use the code in [stm8af\_glitch.py](stm8af_glitch.py) and [stm8l\_glitch.py](stm8l_glitch.py). The following function can be used to run the glitch profiling when only one glitch is required (cf. option bytes): 
+
+```
+state_1_glitch(o_st, o_end, w_st, w_end, v_start, v_end, n_glitches = 2000, o_inc = 0.01, w_inc = 0.01, v_inc = 0.01)
+```
+
+To run the full double glitch attack, use the following function:
+
+```
+state_2_glitch(state_1_offs, state_2_offs) # Perform the double glitch attack at the given offsets.
+
+```
+
+Note that the glitch voltage and width depend on the ambient temperature, chip manufacturing process and moon phase, hence it is recommended running ```state_1_glitch``` first if performing the attack on a training device.
+
