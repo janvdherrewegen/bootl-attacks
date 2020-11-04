@@ -18,7 +18,7 @@ We use several open source tools and packages to compile and run code on the tar
 - [st\_util](https://github.com/stlink-org/stlink):  To flash the stm8 firmware
 
 ## Running the code
-For the voltage glitching, we use a Raspberry pi3B+ to interface with the GIAnT and the chip under test (cf ![Glitch setup](glitch_setup.pdf)). The schematics and source for the GIAnT board is located in the [giant-hardware](giant-hardware) folder.
+For the voltage glitching, we use a Raspberry pi3B+ to interface with the GIAnT and the chip under test (cf [Glitch setup](glitch_setup.pdf)). The schematics and source for the GIAnT board is located in the [giant-hardware](giant-hardware) folder.
 
 
 
