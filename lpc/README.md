@@ -19,8 +19,16 @@ This assumes that the LCP is configured already in CRP 1.
  L^PS_'____________`(``+L0_Q^[$/\?NQ#_'[L0_Q]_$?\?`````($._Q\`
  ```
  * This will give UUencoded memory block, you can repeatedly send `OK\r\n` to dump more memory
-
-To change the read address, you need to adapt the address at offset  in `Exploit_Read_CRP_Value.bin`. Then, `uuencode` this file, and copy only the actual encoded part (not the header).
+ 
+To change the read address, you need to adapt the address at offset 0x0C ... 0x0F (LSByte first)  in `Exploit_Read_CRP_Value.bin`. Then, `uuencode` this file, and copy only the actual encoded part. Do not include the header
+```
+begin 777 /dev/stdout
+```
+and the footer 
+```
+`
+end
+```
 
 ## Partial Overwrite Exploit
 
