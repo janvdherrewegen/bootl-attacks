@@ -1,6 +1,9 @@
 # Glitching the STM8
 
-The scripts in this directory glitch two different versions of the STM8 microcontroller.
+The scripts in this directory glitch two different versions of the STM8 microcontroller:
+
+- STM8L152C6
+- STM8AF6266
 
 ## Setup
 Desolder the chip onto a breakout board and connect the following pins:
@@ -19,6 +22,8 @@ The [bootloader/](bootloader) directory contains code to dump the bootloader via
 ```
 naken_util -disasm -stm8 stm8af_bootloader.bin 
 ```
+
+The bootloader dumps are taken from the chips mentioned above. However, we believe at least all chips in the same family (L151x/L152x for the STM8L152C6 and AF62xx for the STM8AF6266) to have the same bootloader. 
 
 
 ## Option bytes

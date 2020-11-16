@@ -1,6 +1,6 @@
 # 78K0 bootloader attack
 
-This directory contains the source material to attack the 78k0 bootloader using our symbolic execution based technique. 
+This directory contains the source material to attack the 78k0 bootloader using our symbolic execution based technique. All experiments are conducted on a 48-pin 78K0/KC2 chip soldered onto a breakout board. 
 
 ## Connecting the chip
 Desolder the chip onto a breakout board and connect the following pins:
