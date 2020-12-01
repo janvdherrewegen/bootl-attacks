@@ -10,10 +10,9 @@ import logging
 import sys
 
 
-def flash_stm8(flash_f, opt_file, flash_f_dir = ".", chip="stm8af"):
+def flash_stm8(flash_f, opt_file, chip="stm8af"):
     import subprocess
-    flash_f_dir = "."
-    compl_proc = subprocess.run(["./{}/flash.sh".format(flash_f_dir), "{}/{}".format(flash_f_dir,flash_f), "{}/{}".format(flash_f_dir, opt_file)], capture_output=True)
+    compl_proc = subprocess.run(["./flash.sh", flash_f, opt_file], capture_output=True)
     logging.info(compl_proc.stdout.decode())
     logging.info(compl_proc.stderr.decode())
 

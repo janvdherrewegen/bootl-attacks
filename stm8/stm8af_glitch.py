@@ -1,6 +1,7 @@
 from glitcher import glitcher
 from gpiozero import DigitalOutputDevice, DigitalInputDevice, Button
 import numpy as np
+import argparse
 
 from exceptions import *
 
@@ -76,6 +77,15 @@ class stm8_glitcher:
 
     def undervolt(self):
         self.glitcher.set_voltages(self.glitch_voltage, self.normal_voltage, 0)
+
+    def profile(self):
+        ''' Runs the profiling stage - ensure the application is flashed with part of the bootloader code '''
+        self.glitcher.dac.setTriggerOnFallingEdge(0) # Trigger on rising edge
+        self.state_1_glitch(o_st = 0.34, o_end = 2, w_st = 0.06, w_end = 0.13, v_start = 0.6, v_end = 2)
+        
+    def full_attack(self):
+        ''' Runs the double glitch attack on the bootloader '''
+        self.state_2_glitch(state_1_offs = 80.75, state_2_offs = 3.9)
     
     def state_1_glitch(self, o_st, o_end, w_st, w_end, v_start, v_end, n_glitches = 2000, o_inc = 0.01, w_inc = 0.01, v_inc = 0.01, sleep_time = 0.000062, ret_value = 1, out_f = None):
         ''' 
@@ -165,13 +175,16 @@ class stm8_glitcher:
         return n_glitches
 
 
-    
-
-
-
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(filename)s:%(funcName)s: %(message)s")
     glitcher = stm8_glitcher(2000000, stm8_chip = "stm8a", sync_bootl = 0)
- 
-    glitcher.state_2_glitch(state_1_offs = 80.75, state_2_offs = 3.9)
+
+    FUNC_MAP = {"profile": glitcher.profile, "full_attack": glitcher.full_attack}
+    parser = argparse.ArgumentParser(description='Glitch the STM8A MCU')
+    parser.add_argument('command', choices=FUNC_MAP.keys())
+
+    args = parser.parse_args()
+
+    func = FUNC_MAP[args.command]
+    func()

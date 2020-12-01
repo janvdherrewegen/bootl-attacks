@@ -17,7 +17,7 @@ Desolder the chip onto a breakout board and connect the following pins:
 | USART1\_TX | Bootloader TX |
 
 ## Bootloader dump
-The [bootloader/](bootloader) directory contains code to dump the bootloader via the STM8 USART interface. We use [sdcc](http://sdcc.sourceforge.net/) to compile the code and [st-util](https://github.com/stlink-org/stlink) to flash it to the MCU. The bootloader binary can be disassembled with [naken\_asm](https://github.com/mikeakohn/naken_asm) as follows
+The [bootloader/](bootloader) directory contains code to dump the bootloader via the STM8 USART interface. We use [sdcc](http://sdcc.sourceforge.net/) to compile the code and [stm8flash](https://github.com/vdudouyt/stm8flash) to flash it to the MCU. The bootloader binary can be disassembled with [naken\_asm](https://github.com/mikeakohn/naken_asm) as follows
 
 ```
 naken_util -disasm -stm8 stm8af_bootloader.bin 
@@ -68,4 +68,7 @@ state_2_glitch(state_1_offs, state_2_offs) # Perform the double glitch attack at
 ```
 
 Note that the glitch voltage and width depend on the ambient temperature, chip manufacturing process and moon phase, hence it is recommended running ```state_1_glitch``` first if performing the attack on a training device.
+
+### Relay
+The STM8AF 
 

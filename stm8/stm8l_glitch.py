@@ -1,6 +1,7 @@
 from glitcher import glitcher
 from gpiozero import DigitalOutputDevice, DigitalInputDevice, Button
 import numpy as np
+import argparse
 
 from exceptions import *
 
@@ -176,25 +177,28 @@ class stm8_glitcher:
 
     
 def get_glitch_params(glitcher):
-    logdir = 'log-athome/'
+    logdir = 'log/'
 
-    flash_stm8('test.emptychip.hex', 'opt_bootl_enabled_rop_disabled.bin')
+    opt_dir = 'option_bytes/STM8L'
+    flash_dir = 'flash'
+
+    flash_stm8(flash_dir + 'emptychip.hex', opt_dir + 'opt-rop1-bl1.bin', chip = "stm8l")
     for offset in [72.5, 73]:
         glitcher.state_1_glitch(offset - 0.002, offset + 0.002, 0.09, 0.11, 1.7, 1.9, w_inc=0.002, o_inc=0.002, v_inc=0.02, sleep_time = 0.00006, out_f=logdir + 'EMPTYCHIP.log')
 
-    flash_stm8('test.rcf.hex', 'opt_rop_off_bootl_off.bin')
+    flash_stm8(flash_dir + 'first_byte_82.hex', opt_dir + 'opt-rop0-bl0.bin', chip = "stm8l")
     for offset in [59, 57.5, 70.5]:
         out_f = logdir + "ROP0BOOTL0-82" + str(offset) + ".log"
         glitcher.state_1_glitch(offset - 0.002, offset + 0.002, 0.09, 0.11, 1.7, 1.9, w_inc = 0.002, o_inc = 0.002, v_inc = 0.02, sleep_time = 0.00006, out_f = out_f)
-    flash_stm8('test.firstbyteac.hex', 'opt_rop_off_bootl_off.bin')
+    flash_stm8(flash_dir + 'first_byte_ac.hex', opt_dir + 'opt-rop0-bl0.bin', chip = "stm8l")
     for offset in [60.5, 61, 72.5]:
         out_f = logdir + "ROP0BOOTL0-AC" + str(offset) + ".log"
         glitcher.state_1_glitch(offset - 0.002, offset + 0.002, 0.09, 0.11, 1.7, 1.9, w_inc = 0.002, o_inc = 0.002, v_inc = 0.02, sleep_time = 0.00006, out_f = out_f)
-    flash_stm8('test.rcf.hex', 'opt_bootl_enabled_rop_disabled.bin')
+    flash_stm8(flash_dir + 'first_byte_82.hex', opt_dir + 'opt-rop1-bl1.bin', chip = "stm8l")
     for offset in [76]:
         out_f = logdir + "ROP1BOOTL1-82" + str(offset) + ".log"
         glitcher.state_1_glitch(offset - 0.002, offset + 0.002, 0.09, 0.11, 1.7, 1.9, w_inc = 0.002, o_inc = 0.002, v_inc = 0.02, sleep_time = 0.00006, out_f = out_f)
-    flash_stm8('test.firstbyteac.hex', 'opt_bootl_enabled_rop_disabled.bin')
+    flash_stm8(flash_dir + 'first_byte_ac.hex', opt_dir + 'opt-rop1-bl1.bin', chip = "stm8l")
     for offset in [78]:
         out_f = logdir + "ROP1BOOTL1-AC" + str(offset) + ".log"
         glitcher.state_1_glitch(offset - 0.002, offset + 0.002, 0.09, 0.11, 1.7, 1.9, w_inc = 0.002, o_inc = 0.002, v_inc = 0.02, sleep_time = 0.00006, out_f = out_f)
@@ -205,13 +209,19 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(filename)s:%(funcName)s: %(message)s")
     glitcher = stm8_glitcher(2000000) # Set to 2MHz
 
-    # For all option byte configurations and first flash address
-    get_glitch_params(glitcher)
+    parser = parser.ArgumentParser(description = 'STM8L glitching utility')
+    parser.add_argument('cmd', choices = {"partial", "full"}, help="Run the partial attack (1 glitch) or the full attack ")
 
 
-    flash_stm8('test.firstbyteac.hex', 'opt_bootl_disabled.bin')
-    # For first byte 82
-    glitcher.state_2_glitch(state_1_offset = 59, state_2_offset = 14.7)
+    args = parser.parse_args()
 
-    # For first byte AC
-    glitcher.state_2_glitch(state_1_offset = 61, state_2_offset = 12.6)
+    if args.cmd == "partial_attack":
+        # For all option byte configurations and first flash address
+        get_glitch_params(glitcher)
+    elif args.cmd == "full_attack":
+        flash_stm8('flash/first_byte_82.hex', 'option_bytes/STM8L/opt_rop1-bl0.bin', chip = "stm8l")
+        # For first byte 82
+        glitcher.state_2_glitch(state_1_offset = 59, state_2_offset = 14.7)
+
+        # For first byte AC
+        glitcher.state_2_glitch(state_1_offset = 61, state_2_offset = 12.6)
