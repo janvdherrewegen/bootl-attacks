@@ -88,4 +88,6 @@ class rsas_78k0_glitch(glitcher):
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(filename)s:%(funcName)s: %(message)s")
     rsas_glitcher = rsas_78k0_glitch()
-    rsas_glitcher.get_glitch_params(lambda: rsas_glitcher.fp.get_checksum(4,7), (970, 980))
+    equiv_classes = [0x1f00, 0x1e00, 0x0000, 0x1ff8, 0x1ef8, 0x00f8, 0x1ffc, 0x1efc, 0x00fc]    # The equivalence classes for the checksum handler as output by path_constraint 
+    for addr_start in equiv_classes:
+        rsas_glitcher.get_glitch_params(lambda: rsas_glitcher.fp.get_checksum(addr_start, addr_start + 3), (970, 980))

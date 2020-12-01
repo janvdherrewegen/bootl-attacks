@@ -15,6 +15,11 @@ Desolder the chip onto a breakout board and connect the following pins:
 | * | REGC | Voltage input to the 78k0 chip (connect to GIAnT output) |
 | Vss | Vss | Ground |
 
+## Flashing the 78k0
+[renesas_fpi](glitching/renesas_fpi) contains the necessary functionality to interface with the on-chip bootloader and program the chip. Alternatively, existing (though discontinued) renesas tools (e.g. the [Minicube2](https://www.renesas.com/sg/en/software-tool/minicube2qb-mini2-discontinued-product) or the [Renesas E1](https://www.renesas.com/eu/en/software-tool/e1-emulator-r0e000010kce00-discontinued-product)) provide similar functionality. 
+
+Before programming the chip, ensure all blocks to be programmed are erased.
+
 ## Dumping the bootloader
 The ```bootloader_dump``` directory contains the code to dump the bootloader. It sets the necessary registers to map the bootloader in memory and transmits it through the UART.
 

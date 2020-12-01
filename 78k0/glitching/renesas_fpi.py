@@ -7,6 +7,8 @@ import sys
 import numpy
 import os.path
 
+import argparse
+
 class InvalidFrameError(ValueError):
     '''Invalid byte at the beginning of the frame'''
     pass
@@ -427,7 +429,7 @@ class RenesasFlashProgrammer():
         self.flashcomm.send_data_frame(bin_data)
         return self.recv()
 
-    def program(self, addr_start, bin_data, ret_early = 0):
+    def program(self, addr_start, firmware, ret_early = 0):
         '''Programs the binary data to the specified address (in chunks of 0x100 bytes)'''
         self.timeout = 0.1
         # Set the timeout since programming takes longer
@@ -437,7 +439,7 @@ class RenesasFlashProgrammer():
         ret = self.recv()
         if ret_early:
             return ret
-        self.flashcomm.send_data_frame(bin_data)
+        self.flashcomm.send_data_frame(firmware)
         ret = self.recv()
         return ret
 
@@ -452,6 +454,7 @@ class RenesasFlashProgrammer():
 
     def chip_erase(self):
         self.flashcomm.send_command_frame(self.COMMAND_CHIP_ERASE)
+        sleep(1)
         return self.recv()
 
 
@@ -469,13 +472,26 @@ class RenesasFlashProgrammer():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format="%(filename)s:%(funcName)s: %(message)s")
-    fp = RenesasFlashProgrammer("78k0", RenesasFlashComm.MODE_UART2)
+    fp = RenesasFlashProgrammer("78k0", RenesasFlashComm.MODE_SPI)
 
+    parser = argparse.ArgumentParser(description='Renesas 78k0 bootloader interface')
+
+    subparsers = parser.add_subparsers(help="Select the action to perform")
+    parser_prog = subparsers.add_parser('prog', help='Program a firmware to the 78k0')
+    parser_prog.add_argument('firmware', help='the firmware (binary file) to be written to the 78k0')
+    parser_prog.add_argument('--addr', type=int, help='If specified, the firmware will be written to this address. Otherwise, the firmware is written to 0', default=0)
+    parser_prog.add_defaults(func = fp.program)
+
+    parser_chk = subparsers.add_parser('chk', help='Get the checksum over a given address range. Addresses given in hex')
+    parser_chk.add_argument('addr_start', type=lambda x: int(x, 16), default = 0)
+    parser_chk.add_argument('addr_end', type=lambda x: int(x, 16), default = 0xff)
+    parser_chk.add_defaults(func = fp.get_checksum)
+
+    
     if fp.fp_mode() == -1:
+        logging.error("78K0 bootloader not responding to reset command... Check connections")
         sys.exit(1)
-    signature = fp.get_signature()
-    print(" ".join(['{:02x} '.format(i) for i in signature]))
-    print(" ".join([chr(i) for i in signature]))
-    fp.get_checksum(0x0, 0xff)
-    sys.exit(0)
+
+    args = parser.parse_args()
+    args.func(args)
 
