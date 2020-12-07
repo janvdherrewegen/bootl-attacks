@@ -167,11 +167,7 @@ class RenesasFlashComm():
         if self.serial_port:
             self.serial_port.reset_input_buffer()
 
-        # if we are working with the 78K0R (one wire UART over TOOL0)
-        if self.comm_mode == self.MODE_UART1:
-            self.fp_tool0()
-        else:
-            self.fp_uart2()
+        self.fp_uart2()
 
 
     def checksum(self, data):

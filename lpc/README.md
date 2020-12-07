@@ -1,9 +1,8 @@
 # NXP LPC1343 CRP bypasses
-This exploit bypasses CRP level 1 of the LPC1343 through Return-Oriented Programming and partial overwrit. 
+This exploit bypasses CRP level 1 of the LPC1343 through Return-Oriented Programming and partial overwrite. We conduct the attack on the following development board: [LPC1343](https://www.digikey.com/catalog/en/partgroup/lpc1343-evaluation-board-lpc-p1343/33786). The serial communication for both attack scripts is based on [lpc-serial](https://github.com/zackpi/lpc-serial).
 
 ## ROP Exploit
-
-This assumes that the LCP is configured already in CRP 1.
+The ```rop/``` directory contains the necessary files for this exploit. We assume the LPC is configured with CRP 1. Invoke the [rop](ROP/rop.py) script for the exploit.
 
  * Make sure the LPC1343 is in the bootloader: close the BLD_E jumper and ground P0_3
  * Connect via UART and send `?`
@@ -31,8 +30,7 @@ end
 ```
 
 ## Partial Overwrite Exploit
-
-This assumes that you have multiple devices with the same code. The below is an example to overwrite sector 1, and dump sector 0 and 2...7:
+The scripts and code for this exploit are available in the ```partial_overwrite``` directory. The steps below outline the attack. This assumes that you have multiple devices with the same code (for example with ```Exploitable_UserCode.bin```). Invoke the [partial_overwite](partial_overwrite/partial_overwrite.py) script for the exploit. The below is an example to overwrite sector 1, and dump sector 0 and 2...7:
 
 Enable Erase Command: U 23130
 

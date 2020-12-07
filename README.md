@@ -39,7 +39,8 @@ The table below clarifies how to recreate the results mentioned in the paper.
 
 | Section | Directory | Commands | Comment |
 | ------- | --------- | -------- | ------- |
-| 3.2 | ```lpc``` | | |
+| 3.2 | ```lpc/ROP``` | ```python3 rop.py```| CRP1 bypass with stack overwrite |
+| 3.3 | ```lpc/partial_overwrite``` | ```python3 partial_overwrite.py```| CRP1 bypass with partial flash overwrite |
 | 4.1 | ```stm8``` | ```make -C bootloader/```<br>```./flash.sh bootloader/bl_dump.hex option_bytes/STM8AF/opt-rop0-bl0.bin stm8a```| This will flash a firmware to the stm8 which dumps the memory space containing the bootloader over UART |
 | 4.2 | ```stm8``` | ```make -C profiling/```<br>```./flash.sh profiling/enter_app.hex option_bytes/STM8AF/opt-rop0-bl0.bin stm8a```<br>```python stm8af_glitch profile``` | This flashes the profiling code and introduces glitches triggered on a GPIO pin |
 | 4.3 | ```stm8``` | ```python stm8l_glitch partial_attack``` | Run the glitching on the partially protected stm8l MCU. |
