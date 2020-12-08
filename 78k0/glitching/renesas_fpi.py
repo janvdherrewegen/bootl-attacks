@@ -476,12 +476,12 @@ if __name__ == "__main__":
     parser_prog = subparsers.add_parser('prog', help='Program a firmware to the 78k0')
     parser_prog.add_argument('firmware', help='the firmware (binary file) to be written to the 78k0')
     parser_prog.add_argument('--addr', type=int, help='If specified, the firmware will be written to this address. Otherwise, the firmware is written to 0', default=0)
-    parser_prog.add_defaults(func = fp.program)
+    parser_prog.set_defaults(func = fp.program)
 
     parser_chk = subparsers.add_parser('chk', help='Get the checksum over a given address range. Addresses given in hex')
     parser_chk.add_argument('addr_start', type=lambda x: int(x, 16), default = 0)
     parser_chk.add_argument('addr_end', type=lambda x: int(x, 16), default = 0xff)
-    parser_chk.add_defaults(func = fp.get_checksum)
+    parser_chk.set_defaults(func = fp.get_checksum)
 
     
     if fp.fp_mode() == -1:
