@@ -177,7 +177,7 @@ class stm8_glitcher:
 
     
 def get_glitch_params(glitcher):
-    logdir = 'log/'
+    logdir = '.'
 
     opt_dir = 'option_bytes/STM8L'
     flash_dir = 'flash'
@@ -209,16 +209,16 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(filename)s:%(funcName)s: %(message)s")
     glitcher = stm8_glitcher(2000000) # Set to 2MHz
 
-    parser = parser.ArgumentParser(description = 'STM8L glitching utility')
+    parser = argparse.ArgumentParser(description = 'STM8L glitching utility')
     parser.add_argument('cmd', choices = {"partial", "full"}, help="Run the partial attack (1 glitch) or the full attack ")
 
 
     args = parser.parse_args()
 
-    if args.cmd == "partial_attack":
+    if args.cmd == "partial":
         # For all option byte configurations and first flash address
         get_glitch_params(glitcher)
-    elif args.cmd == "full_attack":
+    elif args.cmd == "full":
         flash_stm8('flash/first_byte_82.hex', 'option_bytes/STM8L/opt_rop1-bl0.bin', chip = "stm8l")
         # For first byte 82
         glitcher.state_2_glitch(state_1_offset = 59, state_2_offset = 14.7)

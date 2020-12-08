@@ -483,11 +483,11 @@ if __name__ == "__main__":
     parser_chk.add_argument('addr_end', type=lambda x: int(x, 16), default = 0xff)
     parser_chk.set_defaults(func = fp.get_checksum)
 
+    args = parser.parse_args()
     
     if fp.fp_mode() == -1:
         logging.error("78K0 bootloader not responding to reset command... Check connections")
         sys.exit(1)
 
-    args = parser.parse_args()
     args.func(args)
 
