@@ -1,5 +1,5 @@
 # NXP LPC1343 CRP bypasses
-This exploit bypasses CRP level 1 of the LPC1343 through Return-Oriented Programming and partial overwrite. We conduct the attack on the following development board: [LPC1343](https://www.digikey.com/catalog/en/partgroup/lpc1343-evaluation-board-lpc-p1343/33786). The serial communication for both attack scripts is based on [lpc-serial](https://github.com/zackpi/lpc-serial).
+This exploit bypasses CRP level 1 of the LPC1343 through Return-Oriented Programming and partial overwrite. We conduct the attack on the following development board: [LPC1343](https://www.digikey.com/catalog/en/partgroup/lpc1343-evaluation-board-lpc-p1343/33786). The serial communication for both attack scripts is based on [lpc-serial](https://github.com/zackpi/lpc-serial). Documentation on the LPC readout protection mechanism can be found [here](https://www.nxp.com/docs/en/user-guide/UM10375.pdf).
 
 ## ROP Exploit
 The ```rop/``` directory contains the necessary files for this exploit. We assume the LPC is configured with CRP 1. Invoke the [rop](ROP/rop.py) script for the exploit.
