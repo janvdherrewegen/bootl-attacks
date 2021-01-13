@@ -1,0 +1,82 @@
+Partlist exported from /home/jeanjean/PhD/Jan/bootl-attacks/paper_repo/giant-hardware/board.sch at 13/01/2021 17:12
+
+Part        Value         Device                Package           Description                            MF MPN OC_FARNELL OC_NEWARK TP_SIGNAL_NAME
+AD9708      AD7908        AD7908                SO28W             AD9708 8-Bit DAC with current output                                             
+C1          100n          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C2          10u           C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C3          10u           C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C4          0.1u          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C5          0.1u          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C6          0.1u          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C7          0.1u          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C8          0.1u          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C9          10u           C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C10         10u           C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C16         0.1u          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C17         10u           C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C18         0.1u          C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+C19         10n           C-EUC0805K            C0805K            CAPACITOR, European symbol                                                       
+CN+         24243         24243                 24_243            Multicomp 24.243 Series                                                          
+CN-         24243         24243                 24_243            Multicomp 24.243 Series                                                          
+CNG         24243         24243                 24_243            Multicomp 24.243 Series                                                          
+CON1        USB-FPGA1.11  USB-FPGA1.11          USB-FPGA1.11                                                                                       
+CON_UC                    22-23-2061            22-23-2061        .100" (2.54mm) Center Header - 6 Pin                                             
+D1                        DIODE-SOD123          SOD123            DIODE                                                                            
+D2                        DIODE-SOD123          SOD123            DIODE                                                                            
+DAC_OUT                   BU-SMA-V              BU-SMA-V          FEMALE SMA CONNECTOR                          unknown    unknown                 
+DAC_OUT_GND TPB1,27       TPB1,27               B1,27             Test pad                                                                         
+DAC_T                     PINHD-2X2             2X02              PIN HEADER                                                                       
+GPIO                      PINHD-1X10            1X10              PIN HEADER                                                                       
+GPIO2                     PINHD-1X10            1X10              PIN HEADER                                                                       
+H1          MOUNT-HOLE3.0 MOUNT-HOLE3.0         3,0               MOUNTING HOLE with drill center marker                                           
+H2          MOUNT-HOLE3.0 MOUNT-HOLE3.0         3,0               MOUNTING HOLE with drill center marker                                           
+H3          MOUNT-HOLE3.0 MOUNT-HOLE3.0         3,0               MOUNTING HOLE with drill center marker                                           
+H4          MOUNT-HOLE3.0 MOUNT-HOLE3.0         3,0               MOUNTING HOLE with drill center marker                                           
+IC1         AD80XX        AD80XX                SO08              AD high bandwidth dual opamp                                                     
+JP1                       PINHD-1X2             1X02              PIN HEADER                                                                       
+JP2                       PINHD-1X2             1X02              PIN HEADER                                                                       
+JP3                       PINHD-1X2             1X02              PIN HEADER                                                                       
+JP4                       PINHD-1X2             1X02              PIN HEADER                                                                       
+JP5                       PINHD-1X2             1X02              PIN HEADER                                                                       
+JP6                       PINHD-1X2             1X02              PIN HEADER                                                                       
+JP7                       PINHD-1X3             1X03              PIN HEADER                                                                       
+LED1                      LEDCHIPLED_0805       CHIPLED_0805      LED                                                                              
+LED2                      LEDCHIPLED_0805       CHIPLED_0805      LED                                                                              
+LED3                      LEDCHIPLED_0805       CHIPLED_0805      LED                                                                              
+LED4                      LEDCHIPLED_0805       CHIPLED_0805      LED                                                                              
+OP_VCC                    PINHD-1X3             1X03              PIN HEADER                                                                       
+R1          100k          R-EU_M0805            M0805             RESISTOR, European symbol                                                        
+R2          100k          R-EU_M0805            M0805             RESISTOR, European symbol                                                        
+R3          100k          R-EU_M0805            M0805             RESISTOR, European symbol                                                        
+R4          100k          R-EU_M0805            M0805             RESISTOR, European symbol                                                        
+R5          tbd           R-EU_M0805            M0805             RESISTOR, European symbol                                                        
+R6          tbd           R-EU_M0805            M0805             RESISTOR, European symbol                                                        
+RADJ        1.9k          R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RF          680           R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RF2         680           R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RG          680           R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RG2         680           R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RL1         68            R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RL2         68            R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RO          50            R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RS1         68            R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+RS2         68            R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+R_GND1      0             R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+R_LED1                    R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+R_LED2                    R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+R_LED3                    R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+R_LED4                    R-EU_R0805            R0805             RESISTOR, European symbol                                                        
+R_POT       10k           POTENTIOMETER_PT_SPIN PT-SPIN           Potentiometer                                                                    
+SCIO                      PINHD-1X10            1X10              PIN HEADER                                                                       
+TP_5V       TPB1,27       TPB1,27               B1,27             Test pad                                                                         
+TP_GND      TPB1,27       TPB1,27               B1,27             Test pad                                                                         
+TP_GND1     TPB1,27       TPB1,27               B1,27             Test pad                                                                         
+TP_GNDA     TPPAD1-13     TPPAD1-13             P1-13             Test pad                                                                         
+TP_GNDB     TPPAD1-13     TPPAD1-13             P1-13             Test pad                                                                         
+TP_OUT      TPB1,27       TPB1,27               B1,27             Test pad                                                                         
+TP_OUT1     TPB1,27       TPB1,27               B1,27             Test pad                                                                         
+U$1         MIC5209       MIC5209               SOT223-3                                                                                           
+U$2                       DMG1012UW             DMG1012UW1-SMT323 NPN DMG1012UW                                                                    
+U$3                       DMG1012UW             DMG1012UW1-SMT323 NPN DMG1012UW                                                                    
+U$4                       DMG1012UW             DMG1012UW1-SMT323 NPN DMG1012UW                                                                    
+U$5                       DMG1012UW             DMG1012UW1-SMT323 NPN DMG1012UW                                                                    
