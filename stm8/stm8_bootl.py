@@ -114,7 +114,7 @@ class stm8_bootloader:
         sleep(0.1)
 
     def get_bootl(self):
-        self.send_w_chk(self.CMD_GET)
+        self.send([self.CMD_GET, self.CMD_GET ^ 0xff])
         data = self.recv_frame()
         return data
 

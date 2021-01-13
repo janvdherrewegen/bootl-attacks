@@ -6,13 +6,13 @@ The scripts in this directory glitch two different versions of the STM8 microcon
 - STM8AF6266
 
 ## Setup
-Desolder the chip onto a breakout board and connect the following pins:
+Desolder the chip onto a breakout board and connect the following pins. The chip runs at the standard operating voltage of 3.3V. Other power pins (such as V<sub>ddIO</sub>) can be connected as well, however this will most likely impact the exact glitch voltages (as well as the ambient temperature and other external factors). 
 
 | Pin | Function |
 | --- | -------- |
-| V<sub>ddA</sub>, V<sub>dd1</sub> | Power pins |
-| V<ss> | Ground |
-| NRST | Reset |
+| V<sub>ddA</sub>, V<sub>dd1</sub> | Power pins (connect to the output of the GIAnT) |
+| V<sub>ss</sub>, V<sub>ssA</sub> | Ground |
+| NRST | Reset (Connect to the GIAnT trigger) |
 | USART1\_RX | Bootloader RX |
 | USART1\_TX | Bootloader TX |
 
@@ -70,5 +70,5 @@ state_2_glitch(state_1_offs, state_2_offs) # Perform the double glitch attack at
 Note that the glitch voltage and width depend on the ambient temperature, chip manufacturing process and moon phase, hence it is recommended running ```state_1_glitch``` first if performing the attack on a training device.
 
 ### Relay
-The STM8AF 
+An additional relay was connected and is mentioned in the scripts, which functions as a switch between the programmer (st-link) and our system. This relay ensures any connected devices cannot alter the glitch parameters of the system. 
 
